@@ -1,14 +1,13 @@
 import cv2
 from ursina import Ursina, Button, scene, color, destroy, mouse
 from ursina.prefabs.first_person_controller import FirstPersonController
-import mediapipe
+import mediapipe.python.solutions.hands as mp_hands
 import math
 
 application_engine = Ursina()
 
 video_capture = cv2.VideoCapture(0)
-mediapipe_hands = mediapipe.solutions.hands
-hand_tracker = mediapipe_hands.Hands(min_detection_confidence=0.7, min_tracking_confidence=0.7)
+hand_tracker = mp_hands.Hands(min_detection_confidence=0.7, min_tracking_confidence=0.7)
 previous_pinch_state = False
 
 class VoxelBlock(Button):
@@ -24,5 +23,11 @@ class VoxelBlock(Button):
 
             if key_press == 'right mouse down':
                 destroy(self)
-                
+        
+for z in range(20):
+    for x in range(20):
+        voxel = VoxelBlock(position=(x, 0, z))
+
+player = FirstPersonController()
+
 application_engine.run()
