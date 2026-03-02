@@ -5,4 +5,10 @@ import mediapipe
 import math
 
 application_engine = Ursina()
+
+video_capture = cv2.VideoCapture(0)
+mediapipe_hands = mediapipe.solutions.hands
+hand_tracker = mediapipe_hands.Hands(min_detection_confidence=0.7, min_tracking_confidence=0.7)
+previous_pinch_state = False
+
 application_engine.run()
